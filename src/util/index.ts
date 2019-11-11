@@ -32,7 +32,7 @@ async function foo() {
 
 const marginLeft = (str: string, n: number) => {
   let lines = str.split('\n');
-  let leftSpace = new Array<string>(n).fill('    ').join('');
+  let leftSpace = new Array<string>(n).fill(' ').join('');
   let newStr = lines.join('\n' + leftSpace);
   newStr = leftSpace + newStr;
   return newStr;

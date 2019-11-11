@@ -32,22 +32,22 @@ export class TExpParser extends ParserBase {
         }
     }
 
-    parse(): apply_t {
+    parse(): targ_t {
         this.skipBlank();
-        this.trace();
         while (true) {
-            let r = this.parseApply();
-            if (r == null) break;
-            this.skipBlank();
-            let eof = this.parseEOF();
-            if (eof == null) {
-                this.recErr("expect EOF");
+            let r = this.parseArg();
+            if (r == null) {
                 break;
             }
-            this.retrace(this.idx);
+            this.skipBlank();
+            if (this.parseEOF() == null) {
+                this.recErr(`expect EOF here`);
+                break;
+            }
+            this.idx = 0;
             return r;
         }
-        this.retrace();
+        this.idx = 0;
         return null;
     }
 
