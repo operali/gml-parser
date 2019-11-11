@@ -2,7 +2,8 @@
 a parser for Grovvy DSL like Marked Language
 
 # What is GML
-GML stand for 'Grovvy DSL like markup language', it has a form like any other markup language, like XML,
+GML stand for 'Grovvy DSL like markup language', it has a form like any other markup language, like XML, 
+but is more general and expressive.
 
 a sample below
 
