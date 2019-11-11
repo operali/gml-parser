@@ -106,6 +106,8 @@ export class TExpParser extends ParserBase {
         if (b != null) return b;
         let e = this.parseApply();
         if (e != null) return e;
+        let a = this.parseAssign();
+        if (a != null) return a;
         let v = this.parseVarable();
         if (v != null) return v;
         this.recErr(`cannot find any expression here`)

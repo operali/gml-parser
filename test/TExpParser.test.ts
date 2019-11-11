@@ -79,14 +79,97 @@ test('parseBlock', () => {
 })
 
 test('parseAssign', () => {
-    let p = new TExpParser("a = b{d[];e,'a',t(3, 5)}");
-    let r = p.parseAssign();
-    expect(r).toStrictEqual({
-        type: 'assign',
-        variable: 'a',
-        exp: {
+    {
+        let p = new TExpParser("b = 1");
+        let r = p.parseAssign();
+        expect(r).toStrictEqual({ type: 'assign', variable: 'b', exp: 1 })
+    }
+    {
+        let p = new TExpParser("a = b{d[];e,'a',t(3, 5)}");
+        let r = p.parseAssign();
+        expect(r).toStrictEqual({
+            type: 'assign',
+            variable: 'a',
+            exp: {
+                type: 'texp',
+                tag: 'b',
+                blocks: [
+                    [{
+                        type: 'texp',
+                        tag: 'd',
+                        blocks: [
+                            []
+                        ]
+                    }, { type: 'var', name: 'e' }, 'a', { type: 'texp', tag: 't', blocks: [[3, 5]] }]
+                ]
+            }
+        })
+        expect(p.stateStk.length).toStrictEqual(0);
+    }
+})
+
+test.only('parseExp', () => {
+    {
+        let p = new TExpParser('a {b c}');
+        let r = p.parse();
+        expect(r).toStrictEqual({
             type: 'texp',
-            tag: 'b',
+            tag: 'a',
+            blocks: [
+                [{
+                    type: 'var',
+                    name: 'b'
+                }, {
+                    type: 'var',
+                    name: 'c'
+                }]
+            ]
+        });
+        expect(p.stateStk.length).toStrictEqual(0);
+    }
+    {
+        let p = new TExpParser('a {b,c,d}');
+        let r = p.parse();
+        expect(r).toStrictEqual({
+            type: 'texp',
+            tag: 'a',
+            blocks: [
+                [{
+                    type: 'var',
+                    name: 'b'
+                }, {
+                    type: 'var',
+                    name: 'c'
+                }, {
+                    type: 'var',
+                    name: 'd'
+                }]
+            ]
+        });
+        expect(p.stateStk.length).toStrictEqual(0);
+    }
+    {
+        let p = new TExpParser('a {b=1}');
+        let r = p.parse();
+        expect(r).toStrictEqual({
+            type: 'texp',
+            tag: 'a',
+            blocks: [
+                [{
+                    type: 'assign',
+                    exp: 1,
+                    variable: 'b'
+                }]
+            ]
+        });
+        expect(p.stateStk.length).toStrictEqual(0);
+    }
+    {
+        let p = new TExpParser('a {d[]}');
+        let r = p.parse();
+        expect(r).toStrictEqual({
+            type: 'texp',
+            tag: 'a',
             blocks: [
                 [{
                     type: 'texp',
@@ -94,28 +177,9 @@ test('parseAssign', () => {
                     blocks: [
                         []
                     ]
-                }, { type: 'var', name: 'e' }, 'a', { type: 'texp', tag: 't', blocks: [[3, 5]] }]
+                }]
             ]
-        }
-    })
-    expect(p.stateStk.length).toStrictEqual(0);
-})
-
-test('parseExp', () => {
-    let p = new TExpParser('a {d[]}');
-    let r = p.parse();
-    expect(r).toStrictEqual({
-        type: 'texp',
-        tag: 'a',
-        blocks: [
-            [{
-                type: 'texp',
-                tag: 'd',
-                blocks: [
-                    []
-                ]
-            }]
-        ]
-    });
-    expect(p.stateStk.length).toStrictEqual(0);
+        });
+        expect(p.stateStk.length).toStrictEqual(0);
+    }
 })
