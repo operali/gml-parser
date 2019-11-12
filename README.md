@@ -38,5 +38,3 @@ expect(p).toEqual({type:'texp',
     [{type:'assign', variable:'d', exp:0}]]})
 
 ```
-
-

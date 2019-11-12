@@ -1,12 +1,8 @@
 {
   "name": "gml-parser",
-  "version": "0.0.1",
-  "description": "describe your project here",
-  "engines": {
-    "node": ">=0.4.0"
-  },
-  "main": "index.js",
-  "author": "sky.li",
-  "license": "MIT",
-  "dependencies": {}
+  "version": "0.2.3",
+  "description": "a parser for grovvy DSL like markup language",
+  "main": "gml-parser.js",
+  "author": "operali",
+  "license": "MIT"
 }
