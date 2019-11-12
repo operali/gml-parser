@@ -1,5 +1,5 @@
 # gml-parser
-a parser for Grovvy DSL like Marked Language
+a parser for Groovy DSL like Marked Language
 
 # What is GML
 GML stand for 'Grovvy DSL like markup language', it has a form like any other markup language, like XML, 
