@@ -21,26 +21,7 @@ const config: webpack.Configuration = {
     mode: 'production',
     // webpack——devtool里的7种SourceMap模式
     // https://www.cnblogs.com/wangyingblog/p/7027540.html
-    devtool: 'cheap-module-source-map',
-    // plugins: [
-    //     new DtsBundleWebpack({
-    //         name: projectConfig.moduleName,
-    //         main: 'build/type/index.d.ts',
-    //         baseDir: 'build',
-    //         out: projectConfig.moduleName + '.d.ts'
-    //     }),
-    // ],
-    // optimization: {
-    //     splitChunks: {
-    //         cacheGroups: {
-    //             commons: {
-    //                 name: "commons",
-    //                 chunks: "initial",
-    //                 minChunks: 2
-    //             }
-    //         }
-    //     }
-    // }
+    devtool: 'cheap-module-source-map'
 }
 
 const webConfig = merge(base.webConfig, config, {
@@ -48,8 +29,8 @@ const webConfig = merge(base.webConfig, config, {
         new DtsBundleWebpack({
             name: projectConfig.moduleName,
             main: 'build/type/index.d.ts',
-            baseDir: 'build',
-            out: projectConfig.moduleName + '.d.ts'
+            baseDir: 'build/web',
+            out: 'index.d.ts'
         }),
     ]
 });
@@ -58,8 +39,8 @@ const nodeConfig = merge(base.nodeConfig, config, {
         new DtsBundleWebpack({
             name: projectConfig.moduleName,
             main: 'build/type/index.d.ts',
-            baseDir: 'build',
-            out: projectConfig.moduleName + '.node.d.ts'
+            baseDir: 'build/node',
+            out: 'index.d.ts'
         }),
     ]
 });

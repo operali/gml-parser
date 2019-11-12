@@ -1,6 +1,6 @@
 {
   "name": "gml-parser",
-  "version": "0.2.3",
+  "version": "0.2.10",
   "description": "a parser for grovvy DSL like markup language",
   "main": "gml-parser.js",
   "author": "operali",

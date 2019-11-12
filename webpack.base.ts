@@ -19,7 +19,7 @@ const webConfig: webpack.Configuration & config_t = {
     library: "[name]",
     libraryTarget: "umd",
     umdNamedDefine: true, // generate: `define('${moduleName}', [...], factory)`
-    filename: "[name].js",
+    filename: "web/index.js",
     path: path.resolve(__dirname, 'build')
   },
   // externals: ['@babel/polyfill', "core-js", "string_decoder"],
@@ -45,14 +45,12 @@ const webConfig: webpack.Configuration & config_t = {
       {
         from: "node_modules/requirejs/require.js",
         to: "./"
-      }
-    ]),
-    new HtmlWebpackPlugin({
-      templateParameters: {
-        'moduleName': projectConfig.moduleName
       },
-      template: 'example/module.ejs'
-    })
+      {
+        from: "./example",
+        to: "./"
+      }
+    ])
   ],
   devServer: {
     open: true,
@@ -74,7 +72,7 @@ let nodeConfig = merge(webConfig, {
     library: "[name]",
     libraryTarget: "umd",
     umdNamedDefine: true, // generate: `define('${moduleName}', [...], factory)`
-    filename: "[name].node.js",
+    filename: "node/index.js",
     path: path.resolve(__dirname, 'build')
   },
 })
